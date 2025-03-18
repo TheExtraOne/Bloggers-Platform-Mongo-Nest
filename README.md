@@ -82,12 +82,15 @@ yarn test:e2e
 yarn test:cov
 ```
 
-## API Documentation
+## 📚 API Documentation
 
-Once the application is running, you can access the Swagger API documentation at:
+Once the application is running locally, you can access the Swagger API documentation at:
 `http://localhost:3000/api/docs`
 
-## Scripts
+You can also view the API documentation for the deployed version at:
+[https://bloggers-platform-mongo-nest.vercel.app/swagger](https://bloggers-platform-mongo-nest.vercel.app/swagger)
+
+## 🔧 Scripts
 
 - `yarn build` - Build the application
 - `yarn format` - Format code with Prettier
