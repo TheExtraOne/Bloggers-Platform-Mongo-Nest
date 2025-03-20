@@ -34,6 +34,8 @@ import { DeleteAllSessionsUseCase } from './sessions/app/sessions.use-cases/dele
 import { DeleteSessionByIdUseCase } from './sessions/app/sessions.use-cases/delete-session-by-id.use-case';
 import { ValidateRefreshTokenUseCase } from './sessions/app/sessions.use-cases/validate-refresh-token.use-case';
 import { CoreModule } from '../../core/core-module';
+import { UsersService } from './users/app/users.service';
+import { AdminCreateUserUseCase } from './users/app/users.use-cases/admin-create-user.use-case';
 
 const adapters = [BcryptService, EmailService, CustomJwtService];
 const strategies = [
@@ -44,6 +46,7 @@ const strategies = [
 ];
 const usersUseCases = [
   CreateUserUseCase,
+  AdminCreateUserUseCase,
   DeleteUserUseCase,
   CheckIfUserIsAbleToLoginUseCase,
 ];
@@ -81,6 +84,7 @@ const sessionsUseCases = [
     SessionsRepository,
     SessionsQueryRepository,
     UserAccountsConfig,
+    UsersService,
     ...adapters,
     ...strategies,
     ...usersUseCases,
