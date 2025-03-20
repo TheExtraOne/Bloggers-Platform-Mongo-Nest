@@ -87,8 +87,23 @@ export class LikesRepository {
     return likes;
   }
 
-  async getLikesAndDislikesCount(parentId: string): Promise<{ likesCount: number; dislikesCount: number }> {
-    const [result] = await this.LikeModel.aggregate([
+  async findLikesByAuthorIdAndParentIdArray(
+    userId: string,
+    parentIds: string[],
+  ): Promise<LikeDocument[]> {
+    const likes = await this.LikeModel.find({
+      userId,
+      parentId: { $in: parentIds },
+      deletedAt: null,
+    });
+
+    return likes;
+  }
+
+  async getLikesAndDislikesCount(
+    parentId: string,
+  ): Promise<{ likesCount: number; dislikesCount: number }> {
+    const [result] = (await this.LikeModel.aggregate([
       {
         $match: {
           parentId,
@@ -116,7 +131,7 @@ export class LikesRepository {
           },
         },
       },
-    ]) || { likesCount: 0, dislikesCount: 0 };
+    ])) || { likesCount: 0, dislikesCount: 0 };
 
     return {
       likesCount: result?.likesCount ?? 0,

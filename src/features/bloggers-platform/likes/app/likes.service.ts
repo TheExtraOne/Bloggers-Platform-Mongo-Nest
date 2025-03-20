@@ -58,15 +58,29 @@ export class LikesService {
     // If there's no jwt - returning default (NONE) status
     if (!userId) return paginatedEntities;
 
-    // Get all user's likes
-    const userLikes = await this.likesRepository.findAllLikesByAuthorId(userId);
+    // Get all user's likes for passed parentIds
+    const parentIds = paginatedEntities.items.map((entity) => entity.id);
+    const userLikes =
+      await this.likesRepository.findLikesByAuthorIdAndParentIdArray(
+        userId,
+        parentIds,
+      );
+
+    let userLikesObject: Record<string, LikeStatus> = userLikes.reduce(
+      (acc, like) => {
+        acc[like.parentId] = like.status as LikeStatus;
+        return acc;
+      },
+      {},
+    );
 
     // Add user's like status to each entity
     return {
       ...paginatedEntities,
       items: paginatedEntities.items.map((entity) => {
-        const like = userLikes?.find((like) => like.parentId === entity.id);
-        const myStatus = like ? (like.status as LikeStatus) : LikeStatus.None;
+        // const like = userLikes?.find((like) => like.parentId === entity.id);
+        const like = userLikesObject[entity.id];
+        const myStatus = like ? like : LikeStatus.None;
 
         // Handle both regular and extended likes info
         if ('likesInfo' in entity) {
