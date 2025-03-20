@@ -10,7 +10,8 @@ A modern blogging platform built with NestJS and MongoDB, providing a robust API
 - Email notifications
 - Rate limiting
 - API documentation with Swagger
-- Testing infrastructure
+- Testing infrastructure with Jest
+- Throttling with NestJS Throttler
 
 ## Technologies
 
@@ -36,17 +37,20 @@ A modern blogging platform built with NestJS and MongoDB, providing a robust API
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone [repository-url]
 cd bloggers-platform-nest
 ```
 
 2. Install dependencies
+
 ```bash
 yarn install
 ```
 
 3. Set up environment variables (create a .env file in the root directory)
+
 ```
 NODE_ENV=development
 MONGODB_URI=your_mongodb_connection_string
