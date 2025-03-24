@@ -20,9 +20,9 @@ import { RefreshTokenUseCases } from './auth/app/auth.use-cases/refresh-token.us
 import { ResendRegistrationEmailUseCase } from './auth/app/auth.use-cases/resend-registration-email.use-case';
 import { SendRecoverPasswordEmailUseCase } from './auth/app/auth.use-cases/send-recover-password-email.use-case';
 import { SetNewPasswordUseCase } from './auth/app/auth.use-cases/set-new-password.use-case';
-import { BcryptService } from './facades/bcrypt.service';
-import { CustomJwtService } from './facades/custom-jwt.service';
-import { EmailService } from './facades/email.service';
+import { BcryptService } from './utils/bcrypt.service';
+import { CustomJwtService } from './utils/custom-jwt.service';
+import { EmailService } from './utils/email.service';
 import { CheckIfUserIsAbleToLoginUseCase } from './users/app/users.use-cases/check-user-able-login.use-case';
 import { CreateUserUseCase } from './users/app/users.use-cases/create-user.use-case';
 import { DeleteUserUseCase } from './users/app/users.use-cases/delete-user.use-case';
@@ -36,6 +36,7 @@ import { ValidateRefreshTokenUseCase } from './sessions/app/sessions.use-cases/v
 import { CoreModule } from '../../core/core-module';
 import { UsersService } from './users/app/users.service';
 import { AdminCreateUserUseCase } from './users/app/users.use-cases/admin-create-user.use-case';
+import { ExternalUsersRepository } from './users/infrastructure/external.users.repository';
 
 const adapters = [BcryptService, EmailService, CustomJwtService];
 const strategies = [
@@ -81,6 +82,7 @@ const sessionsUseCases = [
   providers: [
     UsersQueryRepository,
     UsersRepository,
+    ExternalUsersRepository,
     SessionsRepository,
     SessionsQueryRepository,
     UserAccountsConfig,
@@ -91,6 +93,6 @@ const sessionsUseCases = [
     ...authUseCases,
     ...sessionsUseCases,
   ],
-  exports: [BasicStrategy, UsersRepository],
+  exports: [ExternalUsersRepository],
 })
 export class UserAccountsModule {}

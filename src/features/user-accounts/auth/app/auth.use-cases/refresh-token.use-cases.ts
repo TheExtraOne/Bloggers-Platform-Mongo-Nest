@@ -7,7 +7,7 @@ import {
 import {
   CustomJwtService,
   TOKEN_TYPE,
-} from '../../../facades/custom-jwt.service';
+} from '../../../utils/custom-jwt.service';
 import { UpdateSessionTimeCommand } from '../../../sessions/app/sessions.use-cases/update-session-time.use-case';
 
 export class RefreshTokenCommand extends Command<{

@@ -2,7 +2,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { UsersRepository } from '../../infrastructure/users.repository';
 import { EmailConfirmationStatus } from '../../domain/email-confirmation.schema';
 import { Command, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { BcryptService } from '../../../facades/bcrypt.service';
+import { BcryptService } from '../../../utils/bcrypt.service';
 
 export class CheckIfUserIsAbleToLoginCommand extends Command<string> {
   constructor(

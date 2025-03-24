@@ -7,7 +7,7 @@ import { Like, LikeDocument, LikeModelType } from '../../domain/like.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { CommentDocument } from '../../../comments/domain/comment.entity';
 import { PostDocument } from '../../../posts/domain/post.entity';
-import { UsersRepository } from '../../../../user-accounts/users/infrastructure/users.repository';
+import { ExternalUsersRepository } from '../../../../user-accounts/users/infrastructure/external.users.repository';
 
 export enum EntityType {
   Comment = 'comment',
@@ -34,7 +34,7 @@ export class UpdateLikeStatusUseCase
     private readonly likesRepository: LikesRepository,
     private readonly commentsRepository: CommentsRepository,
     private readonly postsRepository: PostsRepository,
-    private readonly usersRepository: UsersRepository,
+    private readonly usersRepository: ExternalUsersRepository,
   ) {}
 
   async execute(command: UpdateLikeStatusCommand): Promise<void> {
